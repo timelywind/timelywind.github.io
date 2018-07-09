@@ -361,19 +361,7 @@
 
       
         
-          
-            <h3 id="block底层初识"><a href="#block底层初识" class="headerlink" title="block底层初识"></a>block底层初识</h3><p>首先看下几个常见的面试题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">void test1()</div><div class="line">&#123;</div><div class="line">    int value = 10;</div><div class="line">    </div><div class="line">    void (^block)(void) = ^&#123;</div><div class="line">        NSLog(@&quot;value = %d&quot;, value);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    value = 20;</div><div class="line">    </div><div class="line">    block(); // 打印结果：value = 10</div><div class="line">&#125;</div><div class="line"></div><div class="line">void test2()</div><div class="line">&#123;</div><div class="line">    __block int value = 10;</div><div class="line">    </div><div class="line">    void (^block)(void) = ^&#123;</div><div class="line">        NSLog(@&quot;value = %d&quot;, value);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    value = 20;</div><div class="line">    </div><div class="line">    block(); // 打印结果：value = 20</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">&lt;!-- more --&gt; </div><div class="line"></div><div class="line"></div><div class="line">void test3()</div><div class="line">&#123;</div><div class="line">    static int value = 10;</div><div class="line">    </div><div class="line">    void (^block)(void) = ^&#123;</div><div class="line">        NSLog(@&quot;value = %d&quot;, value);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    value = 20;</div><div class="line">    </div><div class="line">    block(); // 打印结果：value = 20</div><div class="line">&#125;</div><div class="line"></div><div class="line">int value = 10;</div><div class="line">void test4()</div><div class="line">&#123;</div><div class="line">    void (^block)(void) = ^&#123;</div><div class="line">        NSLog(@&quot;value = %d&quot;, value);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    value = 20;</div><div class="line">    </div><div class="line">    block(); // 打印结果：value = 30</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出，先test1中，我们更改了局部变量value的值，但是block中的value值并没有变化，但是在test2、3、4中，却能成功更改。这是为什么呢？<br>我们尝试着看下它们的底层代码。<br>终端执行clang -rewrite-objc main.m  </p>
-<p><img src="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/block_clang.png" alt="Aaron Swartz"></p>
-<p>把文件编译成c++代码，得到.cpp文件，打开后估计有接近10万行代码，直接command+⬇️，我们来到文件的最后，再往上面滑一点，可以看到如下：</p>
-<p><img src="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/block_底层代码.png" alt="Aaron Swartz"></p>
-<p>我们可以看到 void (*block)(void) 是一个没有参数没有返回值的函数指针，既然是一个函数指针，那它就是一个变量，变量里面只能保存函数地址，等式右边接收是下面这个函数的返回值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__test1_block_impl_0(void *fp, struct __test1_block_desc_0 *desc, int _value, int flags=0) : value(_value) &#123;</div><div class="line">  impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">  impl.Flags = flags;</div><div class="line">  impl.FuncPtr = fp;</div><div class="line">  Desc = desc;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个函数有4个参数，参数 flags＝ 0，这个参数其实就相当于Swift中指定了一个默认值，不传也有值，可以忽略。所以上面test1中传了3个参数，test2中传了4个参数，其中第三个参数是value，前者是传值，后者是传的value的地址，故后者value的值发生了变化</p>
-<p><img src="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/block_test1.png" alt="Aaron Swartz"><br><img src="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/block_test2.png" alt="Aaron Swartz"></p>
-<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>block可以修改全部变量和静态变量，不可以修改局部变量，如果想要修改使用<strong>block，<br>block之所以能够修改全局变量、静态变量、</strong>block修饰的局部变量，是因为把指向变量的指针地址copy到block结构体内部，而局部变量是copy的变量值到block内部.</p>
-<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h4><p>block常见的几个问题：</p>
+          <h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h4><p>block常见的几个问题：</p>
 <ul>
 <li><p>1、block是什么<br>block是一个指向结构体的指针,编译器会将block的内部代码生成对应的函数。</p>
 </li>
@@ -382,10 +370,13 @@
 <li>3、block与循环引用<br>在block代码块内部如果使用了当前对象进行调用方法，或者他的的操作，就会对当前对象进行强引用一次，并且如果这个block归当前对象持有，就会导致block和当前对象互相持有引用，而都不能正常释放。（注意：如果block不是当前对象所持有，例如在控制器中使用AFNetWorking请求，AFNetWorking的block并不是当前控制器所持有的，所以这里不用__weak，不会造成循环引用）</li>
 </ul>
 <p>使用__weak来修饰可以避免对控制器或者当前类的循环引用.<br>但是有的时候，当前对象self已经销毁了，之后再去执行这个block，里面的weakSelf就是个nil了，可能会出现异常，于是最好是如下写法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__weak typeof(self) weakSelf = self;</div><div class="line">self.rightBtnClickHandler = ^() &#123;</div><div class="line">    __strong typeof(self) strongSelf = weakSelf;</div><div class="line">    [strongSelf defaultRightBtnClick];</div><div class="line">    [strongSelf defaultLeftBtnClick];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>在block内部使用__strong对weakSelf进行一次强引用，self的引用计数+1，此时strongSelf相当于是block内部的一个局部变量，只要block不结束，self这个对象就不会释放，等到block执行完毕，局部变量strongSelf也会自动销毁，完成释放。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/03/Block面试题/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

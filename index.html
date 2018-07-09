@@ -361,8 +361,7 @@
 
       
         
-          <h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h4><p>block常见的几个问题：</p>
-<ul>
+          <h4 id="block常见的几个问题："><a href="#block常见的几个问题：" class="headerlink" title="block常见的几个问题："></a>block常见的几个问题：</h4><ul>
 <li><p>1、block是什么<br>block是一个指向结构体的指针,编译器会将block的内部代码生成对应的函数。</p>
 </li>
 <li><p>2、block为什么用copy修饰<br>正常创建出来的block的内存是放在栈中（如果block内部没有调用外部变量时存放在全局区），程序员无法去管理，什么时候释放内存也不是程序员可以决定的，栈区的特点就是创建的对象随时可能被销毁，一旦被销毁后续再次调用空对象就可能会造成程序崩溃。所以一般情况下，就需要使用copy去修饰，会把block copy到堆上，在ARC中，对block代码块内部的对象强引用，在非ARC中对于引用对象进行一次retain操作。</p>

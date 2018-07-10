@@ -368,7 +368,7 @@
 </li>
 <li><p>3、block与循环引用<br>在block代码块内部如果使用了当前对象进行调用方法，或者他的的操作，就会对当前对象进行强引用一次，并且如果这个block归当前对象持有，就会导致block和当前对象互相持有引用，而都不能正常释放。（注意：如果block不是当前对象所持有，例如在控制器中使用AFNetWorking请求，AFNetWorking的block并不是当前控制器所持有的，所以这里不用__weak，不会造成循环引用）</p>
 </li>
-<li><p>4、<strong>strong的使用<br>使用</strong>weak来修饰可以避免对控制器或者当前类的循环引用.<br>但是有的时候，当前对象self已经销毁了，之后再去执行这个block，里面的weakSelf就是个nil了，可能会出现异常，于是最好是如下写法：</p>
+<li><p>4、<strong>strong的使用<br>使用</strong>weak来修饰可以避免对控制器或者当前类的循环引用。<br>但是有的时候，当前对象self已经销毁了，之后再去执行这个block，里面的weakSelf就是个nil了，可能会出现异常，于是最好是如下写法：</p>
 </li>
 </ul>
           <!--noindex-->

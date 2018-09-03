@@ -77,8 +77,6 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React Native," />
-
 
 
 
@@ -94,7 +92,6 @@
 
 
 <meta name="description" content="####一、在自己项目的iOS文件夹下新建一个文件夹取名bundle ####二、将打包命令写到项目package.json文件里，终端执行 npm run bundle-ios 先添加如下（注意：这里写的路径”./ios/bundle”就是上面bundle创建的文件夹）： 1234&amp;quot;scripts&amp;quot;: &amp;#123;    &amp;quot;start&amp;quot;: &amp;quot;no">
-<meta name="keywords" content="React Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native iOS打包详细步骤">
 <meta property="og:url" content="http://yoursite.com/2018/09/03/React-Native-iOS打包详细步骤/index.html">
@@ -105,7 +102,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/RNArchive/Snip20180801_3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/RNArchive/Snip20180801_4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/RNArchive/Snip20180801_5.png">
-<meta property="og:updated_time" content="2018-09-03T07:00:06.532Z">
+<meta property="og:updated_time" content="2018-09-03T07:04:54.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native iOS打包详细步骤">
 <meta name="twitter:description" content="####一、在自己项目的iOS文件夹下新建一个文件夹取名bundle ####二、将打包命令写到项目package.json文件里，终端执行 npm run bundle-ios 先添加如下（注意：这里写的路径”./ios/bundle”就是上面bundle创建的文件夹）： 1234&amp;quot;scripts&amp;quot;: &amp;#123;    &amp;quot;start&amp;quot;: &amp;quot;no">
@@ -322,6 +319,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React Native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -351,6 +370,7 @@
 <p>先添加如下（注意：这里写的路径”./ios/bundle”就是上面bundle创建的文件夹）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;node node_modules/react-native/local-cli/cli.js start&quot;,</div><div class="line">    &quot;bundle-ios&quot;:&quot;node node_modules/react-native/local-cli/cli.js bundle --entry-file index.ios.js  --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle&quot;</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/timelywind/YUBlogDemo/master/blogImages/RNArchive/Snip20180801_3.png" alt="Aaron Swartz"></p>
+  <a id="more"></a> 
 <p>再终端执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm run bundle-ios</div></pre></td></tr></table></figure>
 <p>打包命令完成后会在我们新建的文件夹bundle里面生成相应的文件。</p>
@@ -390,12 +410,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/React-Native/" rel="tag"># React Native</a>
-          
-        </div>
-      
 
       
       
@@ -414,6 +428,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/03/React-Native-学习资料整理（不定时更新）/" rel="prev" title="React Native 学习资料整理（不定时更新）">
+                React Native 学习资料整理（不定时更新） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -477,7 +495,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -488,21 +506,12 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
           
 
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>

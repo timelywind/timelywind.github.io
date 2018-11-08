@@ -1255,6 +1255,123 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/iOS-Application和viewController的生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TimelyRain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://t1.aixinxi.net/o_1c5s3hiso1n8g1dg21sue1a1j1pa5a.jpg-j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="timely">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/17/iOS-Application和viewController的生命周期/" itemprop="url">iOS-Application和viewController的生命周期</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T17:21:36+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="一、Application-的生命周期"><a href="#一、Application-的生命周期" class="headerlink" title="一、Application 的生命周期"></a>一、Application 的生命周期</h4><p><img src="http://upload-images.jianshu.io/upload_images/1814774-86e27c07edb5dd6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Application的生命周期.png"></p>
+<h5 id="1-Application的几种状态"><a href="#1-Application的几种状态" class="headerlink" title="1. Application的几种状态"></a>1. Application的几种状态</h5><p>（1）Not running未运行：程序未启动，或者应用正在运行但是途中被系统停止。<br>（2）Inactive未激活：当前应用正在前台运行，但是并不接收事件。一般每当应用要从一个状态切换到另一个不同的状态时，中途过渡会短暂停留在此状态。此状态停留时间比较长的情况:用户上拉系统设置、者下拉系统状态栏、来电话等。<br>（3）Active激活：程序在前台运行而且接收到了事件。这是应用正在前台运行时所处的正常状态。<br>（4）Backgroud后台：程序在后台而且能执行代码，大多数程序进入这个状态后会在在这个状态上停留一会。时间到之后会进入挂起状态(Suspended)。有的程序经过特殊的请求后可以长期处于Backgroud状态，例如播放器播放音乐等。<br>（5）Suspended挂起：应用处在后台，并且已停止执行代码。系统自动的将应用移入此状态，且在此举之前不会对应用做任何通知。当处在此状态时，应用依然驻留内存但不执行任何程序代码。当系统发生低内存告警时，系统将会将处于Suspended状态的应用清除出内存以为正在前台运行的应用提供足够的内存。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/17/iOS-Application和viewController的生命周期/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1301,7 +1418,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1318,6 +1435,15 @@
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>

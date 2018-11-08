@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS技术," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一、Application 的生命周期 1. Application的几种状态（1）Not running未运行：程序未启动，或者应用正在运行但是途中被系统停止。（2）Inactive未激活：当前应用正在前台运行，但是并不接收事件。一般每当应用要从一个状态切换到另一个不同的状态时，中途过渡会短暂停留在此状态。此状态停留时间比较长的情况:用户上拉系统设置、者下拉系统状态栏、来电话等。（3）Activ">
+<meta name="keywords" content="iOS技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS-Application和viewController的生命周期">
+<meta property="og:url" content="http://yoursite.com/2017/03/17/iOS-Application和viewController的生命周期/index.html">
+<meta property="og:site_name" content="timely">
+<meta property="og:description" content="一、Application 的生命周期 1. Application的几种状态（1）Not running未运行：程序未启动，或者应用正在运行但是途中被系统停止。（2）Inactive未激活：当前应用正在前台运行，但是并不接收事件。一般每当应用要从一个状态切换到另一个不同的状态时，中途过渡会短暂停留在此状态。此状态停留时间比较长的情况:用户上拉系统设置、者下拉系统状态栏、来电话等。（3）Activ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-86e27c07edb5dd6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-13f368d44e49f7dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-964cf89c6aebdd15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-11-08T09:23:42.829Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS-Application和viewController的生命周期">
+<meta name="twitter:description" content="一、Application 的生命周期 1. Application的几种状态（1）Not running未运行：程序未启动，或者应用正在运行但是途中被系统停止。（2）Inactive未激活：当前应用正在前台运行，但是并不接收事件。一般每当应用要从一个状态切换到另一个不同的状态时，中途过渡会短暂停留在此状态。此状态停留时间比较长的情况:用户上拉系统设置、者下拉系统状态栏、来电话等。（3）Activ">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1814774-86e27c07edb5dd6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/17/iOS-Application和viewController的生命周期/"/>
+
+
+
+
+
+  <title>iOS-Application和viewController的生命周期 | timely</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">timely</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">help you help me</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/iOS-Application和viewController的生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TimelyRain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://t1.aixinxi.net/o_1c5s3hiso1n8g1dg21sue1a1j1pa5a.jpg-j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="timely">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS-Application和viewController的生命周期</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T17:21:36+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一、Application-的生命周期"><a href="#一、Application-的生命周期" class="headerlink" title="一、Application 的生命周期"></a>一、Application 的生命周期</h4><p><img src="http://upload-images.jianshu.io/upload_images/1814774-86e27c07edb5dd6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Application的生命周期.png"></p>
+<h5 id="1-Application的几种状态"><a href="#1-Application的几种状态" class="headerlink" title="1. Application的几种状态"></a>1. Application的几种状态</h5><p>（1）Not running未运行：程序未启动，或者应用正在运行但是途中被系统停止。<br>（2）Inactive未激活：当前应用正在前台运行，但是并不接收事件。一般每当应用要从一个状态切换到另一个不同的状态时，中途过渡会短暂停留在此状态。此状态停留时间比较长的情况:用户上拉系统设置、者下拉系统状态栏、来电话等。<br>（3）Active激活：程序在前台运行而且接收到了事件。这是应用正在前台运行时所处的正常状态。<br>（4）Backgroud后台：程序在后台而且能执行代码，大多数程序进入这个状态后会在在这个状态上停留一会。时间到之后会进入挂起状态(Suspended)。有的程序经过特殊的请求后可以长期处于Backgroud状态，例如播放器播放音乐等。<br>（5）Suspended挂起：应用处在后台，并且已停止执行代码。系统自动的将应用移入此状态，且在此举之前不会对应用做任何通知。当处在此状态时，应用依然驻留内存但不执行任何程序代码。当系统发生低内存告警时，系统将会将处于Suspended状态的应用清除出内存以为正在前台运行的应用提供足够的内存。</p>
+ <a id="more"></a> 
+<p><img src="http://upload-images.jianshu.io/upload_images/1814774-13f368d44e49f7dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Application的状态.png"></p>
+<h5 id="2-程序运行状态时代理方法的执行顺序："><a href="#2-程序运行状态时代理方法的执行顺序：" class="headerlink" title="2.  程序运行状态时代理方法的执行顺序："></a>2.  程序运行状态时代理方法的执行顺序：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">1. 告诉代理启动过程已经开始,但状态恢复尚未发生</div><div class="line">- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions&#123;</div><div class="line">    return YES;</div><div class="line">&#125;</div><div class="line"></div><div class="line">2. 告诉代理启动基本完成程序准备开始运行</div><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</div><div class="line">    return YES;</div><div class="line">&#125;</div><div class="line"></div><div class="line">3. 其他应用通过&quot;openURL&quot;的方法打开这个方法所在的app后，这个方法就会被调用（第三方分享的返回、</div><div class="line">点击widget等）。这里还要说一点的是，app在未启动时，用户点击widget打开app的时候，执行顺</div><div class="line">序是didFinishLaunchingWithOptions -&gt; application:openURL:options: -&gt; applicationDidBecomeActive</div><div class="line">- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary&lt;NSString *,id&gt; *)options&#123;</div><div class="line">    return YES;</div><div class="line">&#125;</div><div class="line"></div><div class="line">4. 应用程序入活动状态执行(app首次启动、从后台打开app都会调用)</div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">5. 应用程序将要进入非活动状态执行，在此期间，应用程序不接收消息或事件（app进入后台、下拉系统状态栏、来电话了等）</div><div class="line">- (void)applicationWillResignActive:(UIApplication *)application &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">6. 当程序被推送到后台的时候调用。要设置后台继续运行，则在这个方法里面设置</div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">7. 当程序从后台将要重新回到前台时候调用，这个刚好跟上面的那个方法相反。</div><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">8. 当程序被杀掉将要退出是被调用，通常是用来保存数据和一些退出前的清理工作。但是通常按下home键只是会进入Background，不会调用此方法，可以在Plist中设置 Application does not run in backgroud为YES，这样在点击HOME键时程序就会调用-(void)applicationWillTerminate:(UIApplication *)application方法实现直接退出程序，并且可以在添加数据保存或数据删除方法</div><div class="line">- (void)applicationWillTerminate:(UIApplication *)application &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 此方法已经被willFinishLaunchingWithOptions和didFinishLaunchingWithOptions替代，不需要实现</div><div class="line">- (void)applicationDidFinishLaunching:(UIApplication *)application&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在上面8个方法对应的方法中键入NSLog(@”%s”, <strong>func</strong>)打印。<br>现在启动程序看看执行的顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">1. 启动程序</div><div class="line">①-[AppDelegate application:willFinishLaunchingWithOptions:]</div><div class="line">②-[AppDelegate application:didFinishLaunchingWithOptions:]</div><div class="line">③-[AppDelegate applicationDidBecomeActive:]</div><div class="line"></div><div class="line">2. 按下home键</div><div class="line">①-[AppDelegate applicationWillResignActive:]</div><div class="line">②-[AppDelegate applicationDidEnterBackground:]</div><div class="line"></div><div class="line">3. app在后台状态，点击app打开</div><div class="line">①-[AppDelegate applicationWillEnterForeground:]</div><div class="line">②-[AppDelegate applicationDidBecomeActive:]</div></pre></td></tr></table></figure>
+<h4 id="二、UIViewController生命周期"><a href="#二、UIViewController生命周期" class="headerlink" title="二、UIViewController生命周期"></a>二、UIViewController生命周期</h4><p><img src="http://upload-images.jianshu.io/upload_images/1814774-964cf89c6aebdd15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UIViewController 生命周期.png"></p>
+<p>ViewController的生命周期中各方法执行流程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">init—&gt;loadView—&gt;viewDidLoad—&gt;viewWillApper—&gt;viewWillLayoutSubviews-&gt;viewDidLayoutSubviews</div><div class="line">    -&gt;viewDidApper—&gt;viewWillDisapper—&gt;viewDidDisapper—&gt;viewWillUnload-&gt;viewDidUnload—&gt;dealloc</div></pre></td></tr></table></figure>
+<p>严格的说，一个ViewController完整的声明周期还应该包括initialize这个方法，下面简单地介绍下这些方法：</p>
+<h5 id="1-void-initialize"><a href="#1-void-initialize" class="headerlink" title="1. + (void)initialize;"></a>1. + (void)initialize;</h5><p>类的初始化方法。类的初始化方法。initialize方法并不会每次创建对象都调用，只有在这个类第一次创建对象时才会调用，做一些类的准备工作，再次创建这个类的对象，initalize方法将不会被调用，对于这个类的子类，如果实现了initialize方法，在这个子类第一次创建对象时会调用自己的initalize方法，之后不会调用，如果没有实现，那么它的父类将替它再次调用一下自己的initialize方法，以后创建也都不会再调用。因此，如果我们有一些和这个相关的全局变量，可以在这里进行初始化。</p>
+<h5 id="2-instancetype-init-或着-instancetype-initWithCoder-NSCoder-coder"><a href="#2-instancetype-init-或着-instancetype-initWithCoder-NSCoder-coder" class="headerlink" title="2. - (instancetype)init 或着 - (instancetype)initWithCoder:(NSCoder *)coder;"></a>2. - (instancetype)init 或着 - (instancetype)initWithCoder:(NSCoder *)coder;</h5><p>对象初始化方法。init方法和initCoder方法相似，只是被调用的环境不一样，如果用代码进行初始化，会调用init，从nib文件或者归档进行初始化，会调用initCoder。</p>
+<h5 id="3-void-loadView"><a href="#3-void-loadView" class="headerlink" title="3. - (void)loadView;"></a>3. - (void)loadView;</h5><p>加载视图。loadView方法是开始加载视图的起始方法，除非手动调用，否则在ViewController的生命周期中没特殊情况只会被调用一次。</p>
+<h5 id="4-void-viewDidLoad"><a href="#4-void-viewDidLoad" class="headerlink" title="4. - (void)viewDidLoad;"></a>4. - (void)viewDidLoad;</h5><p>加载视图。viewDidLoad方法是我们最常用的方法的，类中成员对象和变量的初始化我们都会放在这个方法中，在类创建后，无论视图的展现或消失，这个方法也是只会在将要布局时调用一次。</p>
+<h5 id="5-void-viewWillAppear-BOOL-animated"><a href="#5-void-viewWillAppear-BOOL-animated" class="headerlink" title="5. - (void)viewWillAppear:(BOOL)animated;"></a>5. - (void)viewWillAppear:(BOOL)animated;</h5><p>在view即将添加到视图层级中(显示给用户)且任意显示动画切换之前调用(这个时候supperView还是nil)。这个方法中完成任何与视图显示相关的任务，例如改变视图方向、状态栏方向、视图显示样式等</p>
+<h5 id="6-void-viewWillLayoutSubviews"><a href="#6-void-viewWillLayoutSubviews" class="headerlink" title="6. - (void)viewWillLayoutSubviews;"></a>6. - (void)viewWillLayoutSubviews;</h5><p>view即将布局其Subviews。比如view的bounds改变了(例如状态栏从不显示到显示，视图方向变化)，要调整Subviews的位置，在调整之前要做的一些工作就可以在该方法中实现。</p>
+<h5 id="7-void-viewDidLayoutSubviews"><a href="#7-void-viewDidLayoutSubviews" class="headerlink" title="7. - (void)viewDidLayoutSubviews"></a>7. - (void)viewDidLayoutSubviews</h5><p>view已经布局其Subviews。比如view的bounds改变了(例如状态栏从不显示到显示，视图方向变化)，已经调整Subviews的位置，在调整完成之后要做的一些工作就可以在该方法中实现。</p>
+<h5 id="8-void-viewDidAppear-BOOL-animated"><a href="#8-void-viewDidAppear-BOOL-animated" class="headerlink" title="8. - (void)viewDidAppear:(BOOL)animated;"></a>8. - (void)viewDidAppear:(BOOL)animated;</h5><p>在view被添加到视图层级中，显示动画切换之后调用(这时view已经添加到supperView中)。在这个方法中执行视图显示相关附件任务.</p>
+<h5 id="9-void-viewWillDisappear-BOOL-animated"><a href="#9-void-viewWillDisappear-BOOL-animated" class="headerlink" title="9. - (void)viewWillDisappear:(BOOL)animated;"></a>9. - (void)viewWillDisappear:(BOOL)animated;</h5><p>视图将被从屏幕上移除之前执行。view即将从superView中移除且移除动画切换之前，此时还没有调用removeFromSuperview。</p>
+<h5 id="10-void-viewDidDisappear-BOOL-animated"><a href="#10-void-viewDidDisappear-BOOL-animated" class="headerlink" title="10. - (void)viewDidDisappear:(BOOL)animated;"></a>10. - (void)viewDidDisappear:(BOOL)animated;</h5><p> 视图已经被从屏幕上移除，用户看不到这个视图了。view从superView中移除，移除动画切换之后调用，此时已调用removeFromSuperview。</p>
+<p> <del>-(void)viewWillUnload</del><br>在VC的view对象从内存中释放之前调用，可以在view被释放前做一些资源清理操作。在iOS6.0开始就废弃了，该方法不再会调用<br><del>-(void)viewDidUnload</del><br>在VC的view对象从内存中释放之后调用，可以在view被释放后做一些view相关的引用清理操作，此时view为nil。在iOS6.0开始就废弃了，该方法不再会调用</p>
+<h5 id="11-void-dealloc"><a href="#11-void-dealloc" class="headerlink" title="11. - (void)dealloc;"></a>11. - (void)dealloc;</h5><p>viewController被释放时调用。视图view被销毁，此处需要对你在init和viewDidLoad中创建的对象进行释放(ARC下移除通知等)</p>
+<p>参考：<a href="http://www.jianshu.com/p/7f96dc4f4b4f" target="_blank" rel="external">http://www.jianshu.com/p/7f96dc4f4b4f</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS技术/" rel="tag"># iOS技术</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/20/有趣的逻辑题_01/" rel="prev" title="有趣的逻辑题_01">
+                有趣的逻辑题_01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://t1.aixinxi.net/o_1c5s3hiso1n8g1dg21sue1a1j1pa5a.jpg-j.jpg"
+               alt="TimelyRain" />
+          <p class="site-author-name" itemprop="name">TimelyRain</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/timelywind" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/6a0d4f23f6c8" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Application-的生命周期"><span class="nav-number">1.</span> <span class="nav-text">一、Application 的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Application的几种状态"><span class="nav-number">1.1.</span> <span class="nav-text">1. Application的几种状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-程序运行状态时代理方法的执行顺序："><span class="nav-number">1.2.</span> <span class="nav-text">2.  程序运行状态时代理方法的执行顺序：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、UIViewController生命周期"><span class="nav-number">2.</span> <span class="nav-text">二、UIViewController生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-void-initialize"><span class="nav-number">2.1.</span> <span class="nav-text">1. + (void)initialize;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-instancetype-init-或着-instancetype-initWithCoder-NSCoder-coder"><span class="nav-number">2.2.</span> <span class="nav-text">2. - (instancetype)init 或着 - (instancetype)initWithCoder:(NSCoder *)coder;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-void-loadView"><span class="nav-number">2.3.</span> <span class="nav-text">3. - (void)loadView;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-void-viewDidLoad"><span class="nav-number">2.4.</span> <span class="nav-text">4. - (void)viewDidLoad;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-void-viewWillAppear-BOOL-animated"><span class="nav-number">2.5.</span> <span class="nav-text">5. - (void)viewWillAppear:(BOOL)animated;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-void-viewWillLayoutSubviews"><span class="nav-number">2.6.</span> <span class="nav-text">6. - (void)viewWillLayoutSubviews;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-void-viewDidLayoutSubviews"><span class="nav-number">2.7.</span> <span class="nav-text">7. - (void)viewDidLayoutSubviews</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-void-viewDidAppear-BOOL-animated"><span class="nav-number">2.8.</span> <span class="nav-text">8. - (void)viewDidAppear:(BOOL)animated;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-void-viewWillDisappear-BOOL-animated"><span class="nav-number">2.9.</span> <span class="nav-text">9. - (void)viewWillDisappear:(BOOL)animated;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-void-viewDidDisappear-BOOL-animated"><span class="nav-number">2.10.</span> <span class="nav-text">10. - (void)viewDidDisappear:(BOOL)animated;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-void-dealloc"><span class="nav-number">2.11.</span> <span class="nav-text">11. - (void)dealloc;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TimelyRain</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

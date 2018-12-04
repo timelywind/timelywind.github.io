@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS技术," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言iOS的CoreAnimation框架下有一些特殊的layer,使用它们往往会做出非常炫丽的动画效果，不需要使用图片，不需要帧动画。下面我们就来看看三种常见的layer动画，分别是CAReplicatorLayer、CAEmitterLayer和CAGradientLayer。 一、复制层动画 CAReplicatorLayerCAReplicatorLayer可以复制自己子层的layer,并">
+<meta name="keywords" content="iOS技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几种特殊的layer动画">
+<meta property="og:url" content="http://yoursite.com/2017/02/04/几种特殊的layer动画/index.html">
+<meta property="og:site_name" content="timely">
+<meta property="og:description" content="前言iOS的CoreAnimation框架下有一些特殊的layer,使用它们往往会做出非常炫丽的动画效果，不需要使用图片，不需要帧动画。下面我们就来看看三种常见的layer动画，分别是CAReplicatorLayer、CAEmitterLayer和CAGradientLayer。 一、复制层动画 CAReplicatorLayerCAReplicatorLayer可以复制自己子层的layer,并">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-a4223c0dd0844735.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-40e8114f39b1c068.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-ae911137bc868d3b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-996db50460db0d8c.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2018-12-04T06:56:19.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="几种特殊的layer动画">
+<meta name="twitter:description" content="前言iOS的CoreAnimation框架下有一些特殊的layer,使用它们往往会做出非常炫丽的动画效果，不需要使用图片，不需要帧动画。下面我们就来看看三种常见的layer动画，分别是CAReplicatorLayer、CAEmitterLayer和CAGradientLayer。 一、复制层动画 CAReplicatorLayerCAReplicatorLayer可以复制自己子层的layer,并">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1814774-a4223c0dd0844735.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/04/几种特殊的layer动画/"/>
+
+
+
+
+
+  <title>几种特殊的layer动画 | timely</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">timely</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">help you help me</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/04/几种特殊的layer动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TimelyRain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://t1.aixinxi.net/o_1c5s3hiso1n8g1dg21sue1a1j1pa5a.jpg-j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="timely">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">几种特殊的layer动画</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T14:53:12+08:00">
+                2017-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>iOS的CoreAnimation框架下有一些特殊的layer,使用它们往往会做出非常炫丽的动画效果，不需要使用图片，不需要帧动画。下面我们就来看看三种常见的layer动画，分别是CAReplicatorLayer、CAEmitterLayer和CAGradientLayer。</p>
+<h2 id="一、复制层动画-CAReplicatorLayer"><a href="#一、复制层动画-CAReplicatorLayer" class="headerlink" title="一、复制层动画 CAReplicatorLayer"></a>一、复制层动画 CAReplicatorLayer</h2><p>CAReplicatorLayer可以复制自己子层的layer,并且复制的出来的layer和原来的子layer拥有相同的动效。然后通过设置一些属性，就可以完成很酷的效果，非常强大。。</p>
+<p>##效果1：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1814774-a4223c0dd0844735.gif?imageMogr2/auto-orient/strip" alt="心形动画.gif"></p>
+<p>##实现：<br>1.首先我们要得到一个love路径,这个路径用UIBezierPath来制作；</p>
+ <a id="more"></a> 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">+ (CGPathRef)heartPath</div><div class="line">&#123;</div><div class="line">    CGFloat W = 25;</div><div class="line">    CGFloat marginX = 10;</div><div class="line">    CGFloat marginY = 15/25.0 * W;</div><div class="line">    CGFloat space = 5/25.0 * W;</div><div class="line">    </div><div class="line">    UIBezierPath *bezierPath = [UIBezierPath new];</div><div class="line">    </div><div class="line">    [bezierPath moveToPoint:(CGPointMake(marginX + W * 2, W * 4 + space))];</div><div class="line">    [bezierPath addQuadCurveToPoint:CGPointMake(marginX, W * 2) controlPoint:CGPointMake(W, W * 4 - space)];</div><div class="line">    [bezierPath addCurveToPoint:CGPointMake(marginX + W * 2, W * 2) controlPoint1:CGPointMake(marginX, marginY) controlPoint2:CGPointMake(marginX + W * 2, marginY)];</div><div class="line">    [bezierPath addCurveToPoint:CGPointMake(marginX + W * 4, W * 2) controlPoint1:CGPointMake(marginX + W * 2, marginY) controlPoint2:CGPointMake(marginX + W * 4, marginY)];</div><div class="line">    [bezierPath addQuadCurveToPoint:CGPointMake(marginX + W * 2, W * 4 + space) controlPoint:CGPointMake(marginX * 2 + W * 3, W * 4 - space)];</div><div class="line">    </div><div class="line">    [bezierPath closePath];</div><div class="line">    </div><div class="line">    CGAffineTransform T = CGAffineTransformMakeScale(3.0, 3.0);</div><div class="line">    return CGPathCreateCopyByTransformingPath(bezierPath.CGPath, &amp;T);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.创建CAReplicatorLayer，添加上CAKeyframeAnimation动效；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">+ (CALayer *)replicatorLayer_Heart&#123;</div><div class="line">    </div><div class="line">    CAReplicatorLayer *replicatorLayer = [CAReplicatorLayer new];</div><div class="line">    replicatorLayer.frame = CGRectMake(0, 0, 200, 200);</div><div class="line">    //    replicatorLayer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.75].CGColor;</div><div class="line">    </div><div class="line">    CALayer *subLayer = [CALayer new];</div><div class="line">    subLayer.bounds = CGRectMake(60, 105, 10, 10);</div><div class="line">    subLayer.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0].CGColor;</div><div class="line">    subLayer.borderColor = [UIColor colorWithWhite:1.0 alpha:1.0].CGColor;</div><div class="line">    subLayer.borderWidth = 1.0;</div><div class="line">    subLayer.cornerRadius = 5.0;</div><div class="line">    subLayer.shouldRasterize = YES;</div><div class="line">    subLayer.rasterizationScale = [UIScreen mainScreen].scale;</div><div class="line">    [replicatorLayer addSublayer:subLayer];</div><div class="line">    </div><div class="line">    CAKeyframeAnimation *move = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];</div><div class="line">    move.path = [self heartPath];</div><div class="line">    move.repeatCount = INFINITY;</div><div class="line">    move.duration = 6.0;</div><div class="line">    //    move.autoreverses = YES;</div><div class="line">    [subLayer addAnimation:move forKey:nil];</div><div class="line">    </div><div class="line">    replicatorLayer.instanceDelay = 6/50.0;</div><div class="line">    replicatorLayer.instanceCount = 50;</div><div class="line">    replicatorLayer.instanceColor = [UIColor orangeColor].CGColor;</div><div class="line">    replicatorLayer.instanceGreenOffset = -0.03;</div><div class="line">    </div><div class="line">    return replicatorLayer;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.创建一个UIView，将CAReplicatorLayer添加上去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)setReplicatorLayerType:(YUReplicatorLayerType)replicatorLayerType</div><div class="line">&#123;</div><div class="line">    CGFloat width = 100;</div><div class="line">    UIView *aniView = [[UIView alloc] initWithFrame:CGRectMake(0, 150, width, width)];</div><div class="line">    [self.view addSubview:aniView];</div><div class="line">    [aniView.layer addSublayer: [YUReplicatorAnimation replicatorLayerWithType:replicatorLayerType]];</div><div class="line">    self.view.backgroundColor = [UIColor grayColor];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##CAReplicatorLayer动画效果合集：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1814774-40e8114f39b1c068.gif?imageMogr2/auto-orient/strip" alt="CAReplicatorLayer动画合集.gif"></p>
+<p>##实现：点击下载<a href="https://github.com/timelywind/YUAnimation" target="_blank" rel="external">demo源代码</a></p>
+<h2 id="二、粒子动画-CAEmitterLayer"><a href="#二、粒子动画-CAEmitterLayer" class="headerlink" title="二、粒子动画 CAEmitterLayer"></a>二、粒子动画 CAEmitterLayer</h2><p>CAEmitterLayer 是一个高性能的粒子引擎，被用来创建复杂的粒子动画如：烟雾，火，雨等效果，并且很好地控制了性能。</p>
+<p>CAEmitterLayer 看上去像是许多 CAEmitterCell 的容器，这些 CAEmitterCell 定义了一个例子效果。你将会为不同的例子效果定义一个或多个 CAEmitterCell 作为模版，同时 CAEmitterLayer 负责基于这些模版实例化一个粒子流。一个 CAEmitterCell 类似于一个 CALayer ：它有一个 contents 属性可以定义为一个 CGImage ，另外还有一些可设置属性控制着表现和行为。</p>
+<p>##下雪效果：<br><img src="http://upload-images.jianshu.io/upload_images/1814774-ae911137bc868d3b.gif?imageMogr2/auto-orient/strip" alt="下雪.gif"></p>
+<h2 id="三、渐变层-CAGradientLayer"><a href="#三、渐变层-CAGradientLayer" class="headerlink" title="三、渐变层 CAGradientLayer"></a>三、渐变层 CAGradientLayer</h2><p>使用CAGradientLayer可以实现色差动画效果。</p>
+<p>##效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1814774-996db50460db0d8c.gif?imageMogr2/auto-orient/strip" alt="渐变.gif"></p>
+<p>##主要实现代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (void)showLoadingInView:(UIView *)view text:(NSString *)text</div><div class="line">&#123;</div><div class="line">    [view addSubview:self];</div><div class="line">    if (text) &#123;</div><div class="line">        self.text = text;</div><div class="line">    &#125;</div><div class="line">    [self sizeToFit];</div><div class="line">    </div><div class="line">    // 创建渐变效果的layer</div><div class="line">    CAGradientLayer *graLayer = [CAGradientLayer layer];</div><div class="line">    graLayer.frame = self.bounds;</div><div class="line">    graLayer.colors = @[(__bridge id)[[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor,</div><div class="line">                        (__bridge id)[UIColor yellowColor].CGColor,</div><div class="line">                        (__bridge id)[[UIColor yellowColor] colorWithAlphaComponent:0.3].CGColor];</div><div class="line">    </div><div class="line">    graLayer.startPoint = CGPointMake(0, 0);//设置渐变方向起点</div><div class="line">    graLayer.endPoint = CGPointMake(1, 0);  //设置渐变方向终点</div><div class="line">    graLayer.locations = @[@(0.0), @(0.0), @(0.1)]; //colors中各颜色对应的初始渐变点</div><div class="line">    </div><div class="line">    // 创建动画</div><div class="line">    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@&quot;locations&quot;];</div><div class="line">    animation.duration = 1.0f;</div><div class="line">    animation.toValue = @[@(0.9), @(1.0), @(1.0)];</div><div class="line">    animation.removedOnCompletion = NO;</div><div class="line">    animation.repeatCount = HUGE_VALF;</div><div class="line">    animation.fillMode = kCAFillModeForwards;</div><div class="line">    [graLayer addAnimation:animation forKey:@&quot;xindong&quot;];</div><div class="line">    </div><div class="line">    // 将graLayer设置成textLabel的遮罩</div><div class="line">    self.layer.mask = graLayer;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="demo下载"><a href="#demo下载" class="headerlink" title="demo下载"></a>demo下载</h1><p>点击下载<a href="https://github.com/timelywind/YUAnimation" target="_blank" rel="external">demo源代码</a>   </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>iOS的动画非常强大，还有很多很多有待我去学习。另外，写的很不好的地方，希望各位大神能够指正，我会尽量去修改，谢谢。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS技术/" rel="tag"># iOS技术</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/17/iOS-Application和viewController的生命周期/" rel="prev" title="iOS-Application和viewController的生命周期">
+                iOS-Application和viewController的生命周期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://t1.aixinxi.net/o_1c5s3hiso1n8g1dg21sue1a1j1pa5a.jpg-j.jpg"
+               alt="TimelyRain" />
+          <p class="site-author-name" itemprop="name">TimelyRain</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/timelywind" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/6a0d4f23f6c8" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、复制层动画-CAReplicatorLayer"><span class="nav-number">1.1.</span> <span class="nav-text">一、复制层动画 CAReplicatorLayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、粒子动画-CAEmitterLayer"><span class="nav-number">1.2.</span> <span class="nav-text">二、粒子动画 CAEmitterLayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、渐变层-CAGradientLayer"><span class="nav-number">1.3.</span> <span class="nav-text">三、渐变层 CAGradientLayer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demo下载"><span class="nav-number">2.</span> <span class="nav-text">demo下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TimelyRain</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

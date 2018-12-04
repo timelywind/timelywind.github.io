@@ -77,6 +77,8 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
+  <meta name="keywords" content="iOS技术," />
+
 
 
 
@@ -91,17 +93,31 @@
 
 
 
-<meta name="description" content="学前准备 JavaScript 高级教程 - W3School 《 ECMAScript 6 入门》  JSX语法详解  开发环境配置 配置React Native的开发环境 搭建开发环境 - react native 中文网  WebStorm - WebStorm开发工具设置React Native智能提示 - CSDN  VSCode - VSCode IDE超强开发插件介绍 - 江清清的技">
+<meta name="description" content="前言当iOS的APP出于某种原因需要更换开发者账号的时候（出售等其他原因），无需下架删除APP，可以将其所有权转让给其他开发者账号。且在转让期间和转让后，APP评论和评分均可保留。转让后，用户还可以继续进行更新。 这里需要注意的是，集成过 iCloud， Passbook 或订阅类 iAP 将导致 App 无法转移到别的开发者帐号，即使之前集成过，新版禁用也不行。参考链接 下面是APP转让的具体步">
+<meta name="keywords" content="iOS技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React Native 学习资料整理（不定时更新）">
-<meta property="og:url" content="http://yoursite.com/2018/09/03/React-Native-学习资料整理（不定时更新）/index.html">
+<meta property="og:title" content="iOS-App转让&#x2F;转移详细步骤">
+<meta property="og:url" content="http://yoursite.com/2017/05/26/iOS-App转让-转移详细步骤(配图)/index.html">
 <meta property="og:site_name" content="timely">
-<meta property="og:description" content="学前准备 JavaScript 高级教程 - W3School 《 ECMAScript 6 入门》  JSX语法详解  开发环境配置 配置React Native的开发环境 搭建开发环境 - react native 中文网  WebStorm - WebStorm开发工具设置React Native智能提示 - CSDN  VSCode - VSCode IDE超强开发插件介绍 - 江清清的技">
+<meta property="og:description" content="前言当iOS的APP出于某种原因需要更换开发者账号的时候（出售等其他原因），无需下架删除APP，可以将其所有权转让给其他开发者账号。且在转让期间和转让后，APP评论和评分均可保留。转让后，用户还可以继续进行更新。 这里需要注意的是，集成过 iCloud， Passbook 或订阅类 iAP 将导致 App 无法转移到别的开发者帐号，即使之前集成过，新版禁用也不行。参考链接 下面是APP转让的具体步">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-03T07:07:15.047Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-2dbac7aa86113da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-3d2ca4f4419855f6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-fbb7d8f84569326f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-e001731049d7e44f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-87dff27a307d571f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-ef9a934d5b286bbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-1b271872dcb9b98e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-37d6ce26c15ecf5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-46040abd22260669.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-5d83bfdd30004ca2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-e71226a5e39645a0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1814774-2926b37aa238d043.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-04T07:02:00.609Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React Native 学习资料整理（不定时更新）">
-<meta name="twitter:description" content="学前准备 JavaScript 高级教程 - W3School 《 ECMAScript 6 入门》  JSX语法详解  开发环境配置 配置React Native的开发环境 搭建开发环境 - react native 中文网  WebStorm - WebStorm开发工具设置React Native智能提示 - CSDN  VSCode - VSCode IDE超强开发插件介绍 - 江清清的技">
+<meta name="twitter:title" content="iOS-App转让&#x2F;转移详细步骤">
+<meta name="twitter:description" content="前言当iOS的APP出于某种原因需要更换开发者账号的时候（出售等其他原因），无需下架删除APP，可以将其所有权转让给其他开发者账号。且在转让期间和转让后，APP评论和评分均可保留。转让后，用户还可以继续进行更新。 这里需要注意的是，集成过 iCloud， Passbook 或订阅类 iAP 将导致 App 无法转移到别的开发者帐号，即使之前集成过，新版禁用也不行。参考链接 下面是APP转让的具体步">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1814774-2dbac7aa86113da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -129,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/03/React-Native-学习资料整理（不定时更新）/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/26/iOS-App转让-转移详细步骤(配图)/"/>
 
 
 
 
 
-  <title>React Native 学习资料整理（不定时更新） | timely</title>
+  <title>iOS-App转让/转移详细步骤 | timely</title>
   
 
 
@@ -274,7 +290,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/03/React-Native-学习资料整理（不定时更新）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/26/iOS-App转让-转移详细步骤(配图)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TimelyRain">
@@ -291,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">React Native 学习资料整理（不定时更新）</h1>
+          <h1 class="post-title" itemprop="name headline">iOS-App转让/转移详细步骤</h1>
         
 
         <div class="post-meta">
@@ -303,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T15:03:55+08:00">
-                2018-09-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T19:00:13+08:00">
+                2017-05-26
               </time>
             
 
@@ -313,28 +329,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React Native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -360,55 +354,24 @@
       
 
       
-        <h3 id="学前准备"><a href="#学前准备" class="headerlink" title="学前准备"></a>学前准备</h3><ul>
-<li><a href="http://www.w3school.com.cn/js/index_pro.asp" target="_blank" rel="external">JavaScript 高级教程 - W3School</a></li>
-<li><a href="http://es6.ruanyifeng.com" target="_blank" rel="external">《 ECMAScript 6 入门》</a> </li>
-<li><a href="https://blog.csdn.net/a153375250/article/details/53434299" target="_blank" rel="external">JSX语法详解</a></li>
-</ul>
-<h3 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h3><ul>
-<li><a href="https://blog.csdn.net/github_26672553/article/details/52159868" target="_blank" rel="external">配置React Native的开发环境</a></li>
-<li><p><a href="https://reactnative.cn/docs/getting-started.html" target="_blank" rel="external">搭建开发环境 - react native 中文网</a></p>
-</li>
-<li><p>WebStorm - <a href="https://blog.csdn.net/xiangzhihong8/article/details/52224527" target="_blank" rel="external">WebStorm开发工具设置React Native智能提示 - CSDN</a></p>
-</li>
-<li>VSCode - <a href="http://www.lcode.org/vscode-react-native-tools/" target="_blank" rel="external">VSCode IDE超强开发插件介绍 - 江清清的技术专栏</a></li>
-<li>Atom - <a href="http://www.hangge.com/blog/cache/detail_1490.html" target="_blank" rel="external">开发工具Atom+Nuclide详解（安装、使用、代码调试）</a></li>
-</ul>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>当iOS的APP出于某种原因需要更换开发者账号的时候（出售等其他原因），无需下架删除APP，可以将其所有权转让给其他开发者账号。且在转让期间和转让后，APP评论和评分均可保留。转让后，用户还可以继续进行更新。</p>
+<p>这里需要注意的是，集成过 iCloud， Passbook 或订阅类 iAP 将导致 App 无法转移到别的开发者帐号，即使之前集成过，新版禁用也不行。<a href="https://help.apple.com/app-store-connect/#/devaf27784ff" target="_blank" rel="external">参考链接</a></p>
+<p>下面是APP转让的具体步骤：</p>
 <a id="more"></a> 
-<h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><ul>
-<li><a href="https://reactnative.cn" target="_blank" rel="external">快速入门实例 - react native 中文网</a></li>
-<li><a href="https://www.jianshu.com/p/dd69db0a6451" target="_blank" rel="external">写给iOS开发者的React Native学习路线</a></li>
-<li><a href="https://www.cnblogs.com/lingzhihua/p/4923330.html" target="_blank" rel="external">整理了一份React-Native学习指南</a></li>
-<li><a href="https://www.jianshu.com/p/fd4591a978ba" target="_blank" rel="external">React-Native学习指南</a></li>
-<li><a href="http://segmentfault.com/a/1190000002645929" target="_blank" rel="external">React Native 基础练习指北（一）</a></li>
-<li><a href="http://segmentfault.com/a/1190000002647733" target="_blank" rel="external">React Native 基础练习指北（二）</a></li>
-</ul>
-<h3 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h3><ul>
-<li><a href="http://study.163.com/course/courseMain.htm?courseId=1003290004" target="_blank" rel="external">React Native零基础入门到项目实战</a></li>
-</ul>
-<h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><ul>
-<li><a href="https://www.jianshu.com/p/31248003f375" target="_blank" rel="external">布局 FlexBox布局</a></li>
-</ul>
-<h3 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h3><ul>
-<li><a href="https://github.com/kenberkeley/redux-simple-tutorial" target="_blank" rel="external">Redux 简明教程</a></li>
-<li><a href="http://cn.redux.js.org" target="_blank" rel="external">Redux 中文文档</a></li>
-</ul>
-<h3 id="问题探讨"><a href="#问题探讨" class="headerlink" title="问题探讨"></a>问题探讨</h3><ul>
-<li><a href="http://bbs.reactnative.cn/category/4/求助专区" target="_blank" rel="external">React Native中文社区</a></li>
-<li><a href="https://www.jianshu.com/c/45054b9e38c7" target="_blank" rel="external">React Native开发经验集</a></li>
-<li><a href="https://www.jianshu.com/p/98c8f2a970eb?utm_source=desktop&amp;utm_medium=timeline" target="_blank" rel="external">React Native开发错误警告处理总结</a></li>
-</ul>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
-<li><a href="https://www.jianshu.com/p/5cc61ec04b39" target="_blank" rel="external">【React Native】从源码一步一步解析它的实现原理</a></li>
-<li><a href="http://blog.cnbang.net/tech/2698/" target="_blank" rel="external">React Native 通信机制详解 - bang’s blog</a></li>
-</ul>
-<h4 id="开源项目"><a href="#开源项目" class="headerlink" title="开源项目"></a>开源项目</h4><ul>
-<li><a href="https://www.cnblogs.com/qiangxia/p/5584622.html" target="_blank" rel="external">学习React Native必看的几个开源项目</a></li>
-<li><a href="https://blog.csdn.net/sinat_17775997/article/details/70917814" target="_blank" rel="external">RN-开源项目24个</a></li>
-<li><a href="https://blog.csdn.net/Marno__/article/details/71809757?locationNum=7&amp;fps=1" target="_blank" rel="external">分享 50 个完整的 React Native 项目</a></li>
-<li><a href="https://github.com/leanote/leanote-ios" target="_blank" rel="external">Leanote for iOS(云笔记)</a></li>
-<li><a href="https://github.com/hugohua/react-native-demo" target="_blank" rel="external">模仿天猫首页的app</a></li>
-</ul>
+<h4 id="一、转出方操作"><a href="#一、转出方操作" class="headerlink" title="一、转出方操作"></a>一、转出方操作</h4><h5 id="1-登陆-iTunes-Connect，点击我的应用-gt-gt-app信息-点击最下面的转让app"><a href="#1-登陆-iTunes-Connect，点击我的应用-gt-gt-app信息-点击最下面的转让app" class="headerlink" title="1. 登陆 iTunes Connect，点击我的应用&gt;&gt;app信息,点击最下面的转让app"></a>1. 登陆 iTunes Connect，点击我的应用&gt;&gt;app信息,点击最下面的转让app</h5><p><img src="http://upload-images.jianshu.io/upload_images/1814774-2dbac7aa86113da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击转让.png"></p>
+<h5 id="2-点继续"><a href="#2-点继续" class="headerlink" title="2. 点继续"></a>2. 点继续</h5><p><img src="http://upload-images.jianshu.io/upload_images/1814774-3d2ca4f4419855f6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点完转让.jpg"></p>
+<h5 id="3-填写Apple-ID-与-Team-ID"><a href="#3-填写Apple-ID-与-Team-ID" class="headerlink" title="3. 填写Apple ID 与 Team ID"></a>3. 填写Apple ID 与 Team ID</h5><p><img src="http://upload-images.jianshu.io/upload_images/1814774-fbb7d8f84569326f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="接受者的信息填写.png"></p>
+<p>#####&gt;&gt; 下面可查看Team ID<br><img src="http://upload-images.jianshu.io/upload_images/1814774-e001731049d7e44f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看接受者的团队ID.jpg"></p>
+<p>#####4. 勾上，点击请求转让<br><img src="http://upload-images.jianshu.io/upload_images/1814774-87dff27a307d571f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>#####&gt;&gt; 到此在转出账号下的操作就完成了<br><img src="http://upload-images.jianshu.io/upload_images/1814774-ef9a934d5b286bbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="转出方完成.png"></p>
+<p>####二、接受者操作</p>
+<p>#####1. 接受者登录接收App的Apple ID<br><img src="http://upload-images.jianshu.io/upload_images/1814774-1b271872dcb9b98e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击“协议、税务和银行业务”.jpg"></p>
+<p>#####2. 先点击Request<br><img src="http://upload-images.jianshu.io/upload_images/1814774-37d6ce26c15ecf5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="先点击Request.png"></p>
+<p>#####3. 打勾，服从协议<br><img src="http://upload-images.jianshu.io/upload_images/1814774-46040abd22260669.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点完Request.png"></p>
+<p>#####4. 再点击Review<br><img src="http://upload-images.jianshu.io/upload_images/1814774-5d83bfdd30004ca2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击Review.png"></p>
+<p>#####5. 点击review，进入下面界面，填写接受者的基本信息，在这里，公司名称一经填写就无法改变，需要慎重<br><img src="http://upload-images.jianshu.io/upload_images/1814774-e71226a5e39645a0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="填写具体信息.jpg"></p>
+<p>#####6. 填完之后，打勾，点击下面的Accept按钮<br><img src="http://upload-images.jianshu.io/upload_images/1814774-2926b37aa238d043.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击Done.png"></p>
+<p>#####&gt;&gt;&gt;&gt;至此，app转移就此完成,一般需要三小时或者两天，有时候会很快，我转让的app就是两个小时就好了<br>app成功转让之后继续开发可能会遇到一些问题，可以查看下面下面这篇文章：<br><a href="http://www.jianshu.com/p/47733b858284" target="_blank" rel="external">iOS App转让遇到的问题及解决办法</a></p>
 
       
     </div>
@@ -436,6 +399,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS技术/" rel="tag"># iOS技术</a>
+          
+        </div>
+      
 
       
       
@@ -445,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/28/React-Native-iOS打包详细步骤/" rel="next" title="React Native iOS打包详细步骤">
-                <i class="fa fa-chevron-left"></i> React Native iOS打包详细步骤
+              <a href="/2017/03/17/iOS-Application和viewController的生命周期/" rel="next" title="iOS-Application和viewController的生命周期">
+                <i class="fa fa-chevron-left"></i> iOS-Application和viewController的生命周期
               </a>
             
           </div>
@@ -454,6 +423,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/04/iOS-App转让遇到的问题及解决办法/" rel="prev" title="iOS-App转让遇到的问题及解决办法">
+                iOS-App转让遇到的问题及解决办法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -603,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#学前准备"><span class="nav-number">1.</span> <span class="nav-text">学前准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境配置"><span class="nav-number">2.</span> <span class="nav-text">开发环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速入门"><span class="nav-number">3.</span> <span class="nav-text">快速入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频教程"><span class="nav-number">4.</span> <span class="nav-text">视频教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局"><span class="nav-number">5.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux"><span class="nav-number">6.</span> <span class="nav-text">Redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题探讨"><span class="nav-number">7.</span> <span class="nav-text">问题探讨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">8.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开源项目"><span class="nav-number">8.1.</span> <span class="nav-text">开源项目</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、转出方操作"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">一、转出方操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-登陆-iTunes-Connect，点击我的应用-gt-gt-app信息-点击最下面的转让app"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">1. 登陆 iTunes Connect，点击我的应用>>app信息,点击最下面的转让app</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-点继续"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">2. 点继续</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-填写Apple-ID-与-Team-ID"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">3. 填写Apple ID 与 Team ID</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
